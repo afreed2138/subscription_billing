@@ -1,0 +1,178 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{subscription}-{billing_period}",
+ "creation": "2026-08-08 09:00:00.000000",
+ "description": "One row per subscription per billing cycle. The document name is the idempotency key, so the database itself prevents a cycle from being billed twice.",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "subscription",
+  "customer",
+  "billing_period",
+  "column_break_main",
+  "status",
+  "billing_date",
+  "amount",
+  "section_break_period",
+  "period_start_date",
+  "column_break_period",
+  "period_end_date",
+  "section_break_invoice",
+  "sales_invoice",
+  "error_message"
+ ],
+ "fields": [
+  {
+   "fieldname": "subscription",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Subscription",
+   "options": "Customer Subscription",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "subscription.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "description": "Cycle identifier: '2026-08' for monthly, '2026' for yearly.",
+   "fieldname": "billing_period",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Billing Period",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Pending\nInvoiced\nFailed",
+   "reqd": 1
+  },
+  {
+   "fieldname": "billing_date",
+   "fieldtype": "Date",
+   "label": "Billing Date",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_period",
+   "fieldtype": "Section Break",
+   "label": "Period Covered"
+  },
+  {
+   "fieldname": "period_start_date",
+   "fieldtype": "Date",
+   "label": "Period Start Date",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_period",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "period_end_date",
+   "fieldtype": "Date",
+   "label": "Period End Date",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_invoice",
+   "fieldtype": "Section Break",
+   "label": "Invoice"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.status==\"Failed\"",
+   "fieldname": "error_message",
+   "fieldtype": "Small Text",
+   "label": "Error Message",
+   "read_only": 1
+  }
+ ],
+ "in_create": 1,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-08-08 09:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Subscription Billing",
+ "name": "Subscription Billing Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Subscription Manager"
+  },
+  {
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Billing User"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User"
+  },
+  {
+   "read": 1,
+   "role": "Read Only User"
+  }
+ ],
+ "search_fields": "subscription,billing_period,status",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}

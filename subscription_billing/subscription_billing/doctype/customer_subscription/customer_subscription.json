@@ -1,0 +1,238 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-08-08 09:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "customer",
+  "customer_name",
+  "subscription_plan",
+  "column_break_main",
+  "company",
+  "billing_frequency",
+  "amount",
+  "status",
+  "section_break_schedule",
+  "start_date",
+  "end_date",
+  "billing_cycles_completed",
+  "column_break_schedule",
+  "last_billing_date",
+  "next_billing_date",
+  "section_break_cancellation",
+  "cancellation_date",
+  "column_break_cancellation",
+  "cancellation_reason"
+ ],
+ "fields": [
+  {
+   "default": "SUB-.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "no_copy": 1,
+   "options": "SUB-.####",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "subscription_plan",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Subscription Plan",
+   "options": "Customer Subscription Plan",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "description": "Copied from the plan when the plan is selected. Locked once billing has started.",
+   "fieldname": "billing_frequency",
+   "fieldtype": "Select",
+   "label": "Billing Frequency",
+   "options": "Monthly\nYearly",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "description": "Defaults to the plan price. May be overridden per customer.",
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "no_copy": 1,
+   "options": "Draft\nActive\nSuspended\nCancelled\nExpired",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_schedule",
+   "fieldtype": "Section Break",
+   "label": "Billing Schedule"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "description": "Number of cycles already invoiced. The billing schedule is derived from Start Date plus this counter.",
+   "fieldname": "billing_cycles_completed",
+   "fieldtype": "Int",
+   "label": "Billing Cycles Completed",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_schedule",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_billing_date",
+   "fieldtype": "Date",
+   "label": "Last Billing Date",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "next_billing_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Next Billing Date",
+   "no_copy": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:doc.status==\"Cancelled\"",
+   "fieldname": "section_break_cancellation",
+   "fieldtype": "Section Break",
+   "label": "Cancellation"
+  },
+  {
+   "fieldname": "cancellation_date",
+   "fieldtype": "Date",
+   "label": "Cancellation Date",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_cancellation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cancellation_reason",
+   "fieldtype": "Small Text",
+   "label": "Cancellation Reason",
+   "no_copy": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Subscription Billing Log",
+   "link_fieldname": "subscription"
+  }
+ ],
+ "modified": "2026-08-08 09:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Subscription Billing",
+ "name": "Customer Subscription",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Subscription Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Billing User"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User"
+  },
+  {
+   "read": 1,
+   "role": "Read Only User"
+  }
+ ],
+ "search_fields": "customer_name,status,next_billing_date",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
