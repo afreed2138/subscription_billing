@@ -372,6 +372,12 @@ derived cache, so the schedule cannot drift out of sync with billing history.
   lookup at invoice time.
 - **No proration.** Cancelling mid-cycle does not credit the unused portion, and
   suspension skips whole cycles only.
+- **Overriding Amount on the same Item can clash with ERPNext's Item Price.** When
+  Stock Settings has *"Auto insert Price List rate if missing"* enabled (the default),
+  submitting an invoice creates an Item Price for that item. A second subscription that
+  bills the *same item* at a different Amount then fails with
+  `ItemPriceDuplicateItem`. Give each price point its own Plan and Item, or turn that
+  setting off. The failure is isolated to that subscription and retried on the next run.
 - **Billing in advance.** A cycle is invoiced on its first day and covers the period
   from that day to the day before the next cycle.
 - **Taxes and discounts** are whatever ERPNext derives for the customer; the app sets
